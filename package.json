@@ -1,0 +1,8 @@
+{
+  "name": "bug",
+  "dependencies": {
+    "fs-monkey": "^1.0.1",
+    "memfs": "^3.2.0",
+    "unionfs": "^4.4.0"
+  }
+}
