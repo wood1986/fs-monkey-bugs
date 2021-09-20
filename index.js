@@ -6,7 +6,7 @@ const {patchFs, patchRequire} = require(`fs-monkey`);
 
 ufs
   .use(memfs)
-  .use(fs);
+  .use({...fs});
 patchFs(ufs); // make fs recognizes ufs
 patchRequire(ufs);
 
