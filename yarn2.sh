@@ -1,5 +1,0 @@
-git clean -xfd
-git checkout -f
-yarn set version berry
-yarn
-yarn node index.js
