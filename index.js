@@ -2,11 +2,11 @@
 const fs = require(`fs`);
 const {ufs} = require(`unionfs`);
 const {fs:memfs} = require(`memfs`);
-const {patchNodeFs} = require("pnpapi");
+const pnpapi = require("pnpapi");
 const {patchFs, patchRequire} = require(`fs-monkey`);
 
-if (process.versions.pnp && patchNodeFs) {
-  patchNodeFs((originalFs) => {
+if (process.versions.pnp && pnpapi.patchNodeFs) {
+  pnpapi.patchNodeFs((originalFs) => {
     ufs
       .use(memfs)
       .use(originalFs)
