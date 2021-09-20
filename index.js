@@ -4,6 +4,7 @@ const {ufs} = require(`unionfs`);
 const {fs:memfs} = require(`memfs`);
 
 if (process.versions.pnp && require("pnpapi").patchNodeFs) {
+  console.log("berry yarn with patchNodeFs")
   require("pnpapi").patchNodeFs((originalFs) => {
     ufs
       .use(memfs)
@@ -11,6 +12,12 @@ if (process.versions.pnp && require("pnpapi").patchNodeFs) {
     return ufs
   })
 } else {
+  if (process.versions.pnp) {
+    console.log("berry yarn without patchNodeFs")
+  } else {
+    console.log("classic yarn")
+  }
+
   const {patchFs, patchRequire} = require(`fs-monkey`);
     ufs
     .use(memfs)
