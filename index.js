@@ -3,28 +3,12 @@ const fs = require(`fs`);
 const {ufs} = require(`unionfs`);
 const {fs:memfs} = require(`memfs`);
 
-if (process.versions.pnp && require("pnpapi").patchNodeFs) {
-  console.log("berry yarn with patchNodeFs")
-  require("pnpapi").patchNodeFs((originalFs) => {
-    ufs
-      .use(memfs)
-      .use(originalFs)
-    return ufs
-  })
-} else {
-  if (process.versions.pnp) {
-    console.log("berry yarn without patchNodeFs")
-  } else {
-    console.log("classic yarn")
-  }
-
-  const {patchFs, patchRequire} = require(`fs-monkey`);
-    ufs
-    .use(memfs)
-    .use({...fs});
-  patchFs(ufs);
-  patchRequire(ufs);
-}
+const {patchFs, patchRequire} = require(`fs-monkey`);
+  ufs
+  .use(memfs)
+  .use({...fs});
+patchFs(ufs);
+patchRequire(ufs);
 
 fs.writeFileSync(`./fs.log.js`, `module.exports.log = () => { console.log(\`Hello from fs.log.js\`) }`);
 console.log("fs", fs.readFileSync(`./fs.log.js`).toString());
